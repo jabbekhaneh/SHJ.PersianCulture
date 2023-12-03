@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <Title>SHJ.PersianCulture</Title>
     <Authors>Seyed Hassan Jabbekhaneh</Authors>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
 </Project>

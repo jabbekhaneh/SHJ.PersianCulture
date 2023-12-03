@@ -36,10 +36,23 @@ jobs:
       id: version
       uses: battila7/get-version-action@v2
 
-    - name: '📦 Deploy NuGet Package'
-      run: dotnet pack ${{ env.PROJECT_PATH }} --configuration Release  -p:PackageVersion=${{steps.version.outputs.version-without-v}} 
+    - name: '📦 Create NuGet Package'
+      run: dotnet pack -c Release /p:Version=${{ github.event.release.tag_name }} /p:PackageReleaseNotes="See https://github.com/jabbekhaneh//SHJ.PersianCulture/releases/tag/${{ github.event.release.tag_name }}"
+      working-directory: ./src/SHJ.PersianCulture
+      #run: dotnet pack ${{ env.PROJECT_PATH }} --configuration Release  -p:PackageVersion=${{steps.version.outputs.version-without-v}} 
 
-    - name: '🌐 Push package'
-      run: dotnet nuget push src/SHJ.PersianCulture/bin/Release/*.nupkg -k ${{secrets.NUGET_AUTH_KEY}}  -s ${{ env.NUGET_SOURCE_URL }}
+    - name: 📦 Archive NuGet Package
+      uses: actions/upload-artifact@v1
+      with:
+        name: SHJ.PersianCulture
+        path: ./src/SHJ.PersianCulture/bin/Release/SHJ.PersianCulture.${{ github.event.release.tag_name }}.nupkg
+
+    - name: 🌐 Publish Nuget Package
+      run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.NUGET_AUTH_KEY }} --source https://api.nuget.org/v3/index.json --no-symbols true
+
+
+
+    # - name: '🌐 Push package'
+    #   run: dotnet nuget push src/SHJ.PersianCulture/bin/Release/*.nupkg -k ${{secrets.NUGET_AUTH_KEY}}  -s ${{ env.NUGET_SOURCE_URL }}
 
       
