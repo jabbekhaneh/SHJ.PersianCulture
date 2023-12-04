@@ -45,7 +45,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: SHJ.PersianCulture
-        path: ./src/SHJ.PersianCulture/bin/Release/SHJ.PersianCulture.${{ github.event.release.tag_name }}.nupkg
+        path: ./src/SHJ.PersianCulture/bin/Release/SHJ.PersianCulture${{ github.event.release.tag_name }}.nupkg
 
     - name: 🌐 Publish Nuget Package
       run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.NUGET_AUTH_KEY }} --source https://api.nuget.org/v3/index.json --no-symbols true
