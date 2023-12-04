@@ -36,7 +36,6 @@ jobs:
     - name: '📦 Create NuGet Package'
       run: dotnet pack -c Release /p:Version=${{ github.event.release.tag_name }}  /p:PackageReleaseNotes="See https://github.com/jabbekhaneh//SHJ.PersianCulture/releases/tag/${{ github.event.release.tag_name }}"
       working-directory: ./src/SHJ.PersianCulture
-      #run: dotnet pack ${{ env.PROJECT_PATH }} --configuration Release  -p:PackageVersion=${{steps.version.outputs.version-without-v}} 
 
     - name: 📦 Archive NuGet Package
       uses: actions/upload-artifact@v1
