@@ -2,53 +2,51 @@
 
 name: "Release to Nuget (Automatic Versioning) 📄🛠️🚀📦💾🌐"
 
-on:
-  push:
-    tags:
-       - "v*"
+on: ["push"]
+ 
 
 env:
   PROJECT_PATH: 'src/SHJ.PersianCulture/SHJ.PersianCulture.csproj'
+  PACKAGE_OUTPUT_DIRECTORY: ${{github.workspace}}\output
   NUGET_SOURCE_URL: 'https://api.nuget.org/v3/index.json'
-  
-
+      
 jobs:
   deploy:
     name: 'Deploy'
-    runs-on: ubuntu-latest
+    runs-on: 'windows-latest'
 
     steps:
-    - name: '📄 Checkout'
+    - name: 'Checkout'
       uses: actions/checkout@v2
     
-    - name: '🛠️ Install dotnet'
+    - name: 'Install dotnet'
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '6.0.x'
-    
-    - name: '💾 Build project'
-      run: dotnet build ${{ env.PROJECT_PATH }} --configuration Release
 
-    - name: '🚀 Get version'
-      id: version
-      uses: battila7/get-version-action@v2
-
-    - name: '📦 Create NuGet Package'
-      run: dotnet pack -c Release /p:Version=${{ github.event.release.tag_name }}  /p:PackageReleaseNotes="See https://github.com/jabbekhaneh//SHJ.PersianCulture/releases/tag/${{ github.event.release.tag_name }}"
-      working-directory: ./src/SHJ.PersianCulture
-
-    - name: 📦 Archive NuGet Package
-      uses: actions/upload-artifact@v1
+    - name: Setup dotnet 8.0
+      uses: actions/setup-dotnet@v1
       with:
-        name: SHJ.PersianCulture
-        path: ./src/SHJ.PersianCulture/bin/Release/SHJ.PersianCulture.${{ github.event.release.tag_name }}.nupkg
+        dotnet-version: '8.0.100'
 
-    - name: 🌐 Publish Nuget Package
-      run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.NUGET_AUTH_KEY }} --source https://api.nuget.org/v3/index.json --no-symbols true
+    - name: 'Restore packages'
+      run: dotnet restore  ${{ env.PROJECT_PATH }}
+    
+    - name: 'Build project'
+      run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
 
+    -  name: 'Get version'
+       id: version
+       uses: battila7/get-version-action@v2
 
+    - name: 'Pack project'
+      run: dotnet pack ${{ env.PROJECT_PATH }} --no-restore --no-build --configuration Release --include-symbols -p:PackageVersion=${{steps.version.outputs.version-without-v}}  --output ${{env.PACKAGE_OUTPUT_DIRECTORY}}
 
-    # - name: '🌐 Push package'
-    #   run: dotnet nuget push src/SHJ.PersianCulture/bin/Release/*.nupkg -k ${{secrets.NUGET_AUTH_KEY}}  -s ${{ env.NUGET_SOURCE_URL }}
+    - name: 'Push package'
+      run: dotnet nuget push ${{env.PACKAGE_OUTPUT_DIRECTORY}}\*.nupkg -k ${{ secrets.NUGET_AUTH_KEY }}  -s ${{ env.NUGET_SOURCE_URL }}
+      
+      
+
+    
 
       
