@@ -15,7 +15,7 @@ env:
 jobs:
   deploy:
     name: 'Deploy'
-    runs-on: 'windows-latest'
+    runs-on: ubuntu-lates
 
     steps:
     - name: '📄 Checkout'
@@ -25,15 +25,16 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '6.0.x'
-
-    - name: '🛠️ Restore packages'
-      run: dotnet restore  ${{ env.PROJECT_PATH }}
     
     - name: '💾 Build project'
       run: dotnet build ${{ env.PROJECT_PATH }} --configuration Release
 
+    - name: '🚀 Get version'
+      id: version
+      uses: battila7/get-version-action@v2
+
     - name: '📦 Create NuGet Package'
-      run: dotnet pack -c Release /p:Version=${{github.event.release.tag_name}}  /p:PackageReleaseNotes="See https://github.com/jabbekhaneh//SHJ.PersianCulture/releases/tag/${{ github.event.release.tag_name }}"
+      run: dotnet pack -c Release /p:Version=${{ github.event.release.tag_name }}  /p:PackageReleaseNotes="See https://github.com/jabbekhaneh//SHJ.PersianCulture/releases/tag/${{ github.event.release.tag_name }}"
       working-directory: ./src/SHJ.PersianCulture
       #run: dotnet pack ${{ env.PROJECT_PATH }} --configuration Release  -p:PackageVersion=${{steps.version.outputs.version-without-v}} 
 
