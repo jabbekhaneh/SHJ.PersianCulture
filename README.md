@@ -18,7 +18,25 @@ Or via the .NET Core command line interface:
 ```bash
 > dotnet add package SHJ.PersianCulture
 ```
+### How to use
 
+```
+using SHJ.PersianCulture;
+```
+### convert datetime sample
+```
+DateTime.Now.ToPersianDateTextify();
+DateTime.Now.ToPersianDateTimeString("yyyy/mm/dd");
+and ...
+```
 
-
+### persian Validators sample
+```
+IsNationalCode : Iranian national code
+string nationalcode = "2280924366";
+if (!nationalcode.IsNationalCode())
+    {
+            //Error 
+    }
+```
 
