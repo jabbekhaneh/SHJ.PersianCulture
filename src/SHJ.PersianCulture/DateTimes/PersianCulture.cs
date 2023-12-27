@@ -1,8 +1,7 @@
-﻿using SHJ.PersianCulture.DateTimes;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Reflection;
 
-namespace SHJ.PersianCulture.Images;
+namespace SHJ.PersianCulture.DateTimes;
 
 /// <summary>
 /// فرهنگ فارسی سفارشی سازی شده

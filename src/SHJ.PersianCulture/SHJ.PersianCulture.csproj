@@ -9,10 +9,17 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageProjectUrl>https://github.com/jabbekhaneh/SHJ.PersianCulture</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/jabbekhaneh/SHJ.PersianCulture</RepositoryUrl>
-		<Description>Using Persian culture in .net
-//repository : https://github.com/jabbekhaneh/SHJ.PersianCulture</Description>
+		<Description>En: Use of Persian culture in C# (dateTime, provinces and cities, validation,Currency)
+
+Fa: استفاده از فرهنگ فارسی در سی شارپ.(تاریخ،استان ها و شهر ها،، اعتبار سنجی،واحد پول)
+- صحت سنجی شناسه ملی شرکت‌ها
+- صحت سنجی کد ملی
+
+
+ مشارکت :  https://github.com/jabbekhaneh/SHJ.PersianCulture
+</Description>
 		<PackageIcon>logo.png</PackageIcon>
-		<Copyright>@</Copyright>
+		<Copyright>@Jabbekhaneh</Copyright>
 	</PropertyGroup>
 
 	<ItemGroup>
