@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Reflection;
 
-namespace SHJ.PersianCulture;
+namespace SHJ.PersianCulture.Images;
 
 /// <summary>
 /// فرهنگ فارسی سفارشی سازی شده

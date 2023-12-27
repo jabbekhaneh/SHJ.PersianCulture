@@ -7,11 +7,12 @@
 		<Title>SHJ.PersianCulture</Title>
 		<Authors>Seyed Hassan Jabbekhaneh</Authors>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Description>SHJ.PersianCulture .NET</Description>
 		<PackageProjectUrl>https://github.com/jabbekhaneh/SHJ.PersianCulture</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/jabbekhaneh/SHJ.PersianCulture</RepositoryUrl>
-		<Description>Using Persian culture in .net</Description>
+		<Description>Using Persian culture in .net
+//repository : https://github.com/jabbekhaneh/SHJ.PersianCulture</Description>
 		<PackageIcon>logo.png</PackageIcon>
+		<Copyright>@</Copyright>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -19,6 +20,10 @@
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>
 	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Values\" />
 	</ItemGroup>
 
 </Project>
